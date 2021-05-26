@@ -46,28 +46,38 @@ const Home = () => {
     return (
         <section className='homepage'>
             <h2>Изучаем знаки</h2>
-            {
+            <div className="switchers">
+                <div>
+                    <p>Раздел</p>
+                    <Select name="sections" onChange={(e)=> {
+                        dispatcher(setSection(e.target.value))}}>
+                        {availableSections.map((key, index) => (
+                            <SelectOption value={key} key={index}>{i18n[key]}</SelectOption>))}
+                    </Select>
+                </div>
+                <div>
+                    <p>Режим</p>
+                    <Select name='state'>
+                        <option value="default">Проверка знаний</option>
+                    </Select>
+                </div>
+            </div>
 
-            }
-            <Select name="sections" onChange={(e)=> {
-                    dispatcher(setSection(e.target.value))}
-            }>
-                {availableSections.map((key, index) => (
-                    <SelectOption value={key} key={index}>{i18n[key]}</SelectOption>))}
-            </Select>
             <div className="area">
                 {Object.keys(item).length !== 0 ?
                     <div className="question">
-                        <h2>{item.title}</h2>
                         <img src={item.image} alt={item.title}/>
-                        <p>{item.description}</p>
+                        <div className="hint">
+                            <h2>{item.title}</h2>
+                            <p>{item.description}</p>
+                        </div>
                         <List className="answers">
                             {answers.map((e, i) => (
                                 <ListItem key={i}><Button type='button' onClick={() => item.id == e.id ? alert('Верно'): alert('Не верно')}>{e.title}</Button></ListItem>
                             ))}
                         </List>
                     </div> : ''}
-                <button onClick={() => dispatcher(nextQuestion(selectedSection, randomIndex))}>Дальше</button>
+                <button onClick={() => dispatcher(nextQuestion(selectedSection, randomIndex))} className="next">Дальше</button>
             </div>
         </section>
     )
