@@ -1,0 +1,3 @@
+export const SET_SELECTED_SECTION = 'SET_SELECTED_SECTION';
+export const SET_ITEM = 'SET_ITEM';
+export const NEXT_QUESTION = 'NEXT_QUESTION';
