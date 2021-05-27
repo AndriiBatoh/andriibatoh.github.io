@@ -17,11 +17,12 @@ code {
 }
 
 .homepage {
-  padding: 15px;
+  position: relative;
+  padding: 25px;
   display: flex;
   flex-direction: column;
   margin: auto;
-  max-width: 400px;
+  max-width: 768px;
   align-items: center;
   justify-content: center;
 }
@@ -37,18 +38,96 @@ code {
 }
 
 .answers button {
-  margin: 5px;
+  margin: 5px auto;
+  padding: 5px 10px;
+  background-color: #fff;
+  border: 1px solid gray;
   display: block;
   width: 100%;
+  max-width: 300px;
+  cursor: pointer;
+  border-radius: 4px;
 }
 
 .next {
   display: block;
   margin: auto;
+  border: 1px solid gray;
+  cursor: pointer;
+  padding: 5px 10px;
+  border-radius: 4px;
+  min-width: 150px;
+  background-color: lightgreen;
 }
 
 .switchers {
   width: 100%;
   display: flex;
   justify-content: space-between;
+}
+
+.description.button {
+  display: block;
+  min-width: 50px;
+  padding: 5px 10px;
+  border-radius: 4px;
+  background-color: #fff;
+  border: 1px solid lightgray;
+  margin: 20px auto;
+}
+
+.hidden {
+  display: none;
+}
+
+select {
+  height: 40px;
+}
+
+.checker {
+  display: none;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.checker.show {
+  display: block;
+}
+
+.checker.true {
+  -webkit-box-shadow: inset 0px 0px 20px 3px #66FF17;
+  box-shadow: inset 0px 0px 20px 3px #66FF17;
+}
+
+.checker.true .true {
+  display: block;
+}
+
+.checker.false .false {
+  display: block;
+}
+
+.checker.false {
+  -webkit-box-shadow: inset 0px 0px 20px 3px #FF2E37;
+  box-shadow: inset 0px 0px 20px 3px #FF2E37;
+}
+
+.checker .true,
+.checker .false {
+  display: none;
+  font-size: 36px;
+  font-weight: bold;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.checker .true {
+  color: #8cde00;
+}
+
+.checker .false {
+  color: #ff0000;
 }

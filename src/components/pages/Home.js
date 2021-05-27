@@ -21,7 +21,6 @@ const Home = () => {
     const randomAnswer = () => {
         let preparedAnswers = answers.map((e) => e.id);
         let random = Math.floor(Math.random() * defaultState.length);
-        console.log(defaultState);
         if(preparedAnswers.indexOf(defaultState[random].id) >= 0) {
             return randomAnswer();
         }
@@ -43,12 +42,28 @@ const Home = () => {
 
     shuffle(answers);
 
+    const toggleAnswer = (wasIt) => {
+        const checker = document.getElementById('checker');
+        if(wasIt) {
+            checker.className = 'checker show true';
+        } else {
+            checker.className = 'checker show false';
+        }
+
+        setTimeout(() => {
+            checker.className = 'checker';
+        }, 600)
+    }
     return (
         <section className='homepage'>
-            <h2>Изучаем знаки</h2>
+            <div id="checker" className='checker'>
+                <div className='true'>Вірно !</div>
+                <div className='false'>Не вірно !</div>
+            </div>
+            <h2>Вчимо знаки</h2>
             <div className="switchers">
                 <div>
-                    <p>Раздел</p>
+                    <p>Розділ</p>
                     <Select name="sections" onChange={(e)=> {
                         dispatcher(setSection(e.target.value))}}>
                         {availableSections.map((key, index) => (
@@ -67,17 +82,26 @@ const Home = () => {
                 {Object.keys(item).length !== 0 ?
                     <div className="question">
                         <img src={item.image} alt={item.title}/>
-                        <div className="hint">
+                        <Button type='button' className='description button' onClick={() => {
+                            const hint = document.getElementById('hint');
+                            if(hint.className == "hint") {
+                                hint.className = "hint hidden";
+                                return;
+                            }
+                            hint.className = "hint";
+
+                        }}>Опис</Button>
+                        <div className="hint hidden" id='hint'>
                             <h2>{item.title}</h2>
                             <p>{item.description}</p>
                         </div>
                         <List className="answers">
                             {answers.map((e, i) => (
-                                <ListItem key={i}><Button type='button' onClick={() => item.id == e.id ? alert('Верно'): alert('Не верно')}>{e.title}</Button></ListItem>
+                                <ListItem key={i}><Button type='button' onClick={() => item.id == e.id ? toggleAnswer(true): toggleAnswer()}>{e.title}</Button></ListItem>
                             ))}
                         </List>
                     </div> : ''}
-                <button onClick={() => dispatcher(nextQuestion(selectedSection, randomIndex))} className="next">Дальше</button>
+                <button onClick={() => dispatcher(nextQuestion(selectedSection, randomIndex))} className="next">Далі</button>
             </div>
         </section>
     )
